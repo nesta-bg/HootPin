@@ -177,8 +177,14 @@
     <Compile Include="Migrations\201905201021431_InitialTablesIdentityFramework.Designer.cs">
       <DependentUpon>201905201021431_InitialTablesIdentityFramework.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905201135087_CreateHootsAndGenresTables.cs" />
+    <Compile Include="Migrations\201905201135087_CreateHootsAndGenresTables.Designer.cs">
+      <DependentUpon>201905201135087_CreateHootsAndGenresTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\Hoot.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -260,6 +266,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905201021431_InitialTablesIdentityFramework.resx">
       <DependentUpon>201905201021431_InitialTablesIdentityFramework.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905201135087_CreateHootsAndGenresTables.resx">
+      <DependentUpon>201905201135087_CreateHootsAndGenresTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
