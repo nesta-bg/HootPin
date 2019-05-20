@@ -186,6 +186,10 @@
     <Compile Include="Migrations\201905201142339_PopulateGenresTable.Designer.cs">
       <DependentUpon>201905201142339_PopulateGenresTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905201327171_AddForeignKeyPropertiesToHootsTable.cs" />
+    <Compile Include="Migrations\201905201327171_AddForeignKeyPropertiesToHootsTable.Designer.cs">
+      <DependentUpon>201905201327171_AddForeignKeyPropertiesToHootsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -279,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905201142339_PopulateGenresTable.resx">
       <DependentUpon>201905201142339_PopulateGenresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905201327171_AddForeignKeyPropertiesToHootsTable.resx">
+      <DependentUpon>201905201327171_AddForeignKeyPropertiesToHootsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

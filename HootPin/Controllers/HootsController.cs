@@ -2,6 +2,8 @@
 using HootPin.ViewModels;
 using System.Web.Mvc;
 using System.Linq;
+using Microsoft.AspNet.Identity;
+using System;
 
 namespace HootPin.Controllers
 {
@@ -14,7 +16,7 @@ namespace HootPin.Controllers
             _context = new ApplicationDbContext();
         }
 
-        // GET: Hoots
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new HootFormViewModel
@@ -23,6 +25,36 @@ namespace HootPin.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(HootFormViewModel viewModel)
+        {
+            /*
+            var artistId = User.Identity.GetUserId();
+            var artist = _context.Users.Single(u => u.Id == artistId);
+            var genre = _context.Genres.Single(g => g.Id == viewModel.Genre);
+
+            var hoot = new Hoot
+            {
+                Artist = artist,
+                Genre = genre
+            };
+            */
+
+            var hoot = new Hoot
+            {
+                ArtistId = User.Identity.GetUserId(),
+                DateTime = viewModel.DateTime,
+                GenreId = viewModel.Genre,
+                Venue = viewModel.Venue
+            };
+
+            _context.Hoots.Add(hoot);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
