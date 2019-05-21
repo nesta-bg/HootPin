@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 90px;
     padding-bottom: 20px;
 }
 
@@ -24,8 +24,8 @@ textarea {
 }
 
 .navbar-inverse {
-    background-color: #C71585;
-    border-color: #C71585;
+    background-color: #FF0038;
+    border-color: #FF0038;
 }
 
     .navbar-inverse .navbar-nav > li > a {
@@ -39,7 +39,7 @@ textarea {
             }
 
     .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-        background-color: #b9137c;
+        background-color: #e60032;
     }
 
 .dropdown-menu {
@@ -99,6 +99,55 @@ h6,
 }
 
 span.field-validation-error {
-    color: red;
+    color: #FF0038;
     font-weight: bold;
 }
+
+/* Page-level Styles */
+
+.hoots {
+    list-style: none;
+}
+
+.hoots > li {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+    .hoots > li .date {
+        background: #FFCE38;
+        color: white;
+        text-align: center;
+        width: 50px;
+        /*-ms-border-radius: 9px;*/
+        border-radius: 8px;
+    }
+
+        .hoots > li .date .month {
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 2px 6px;
+        }
+
+        .hoots > li .date .day {
+            background: #f7f7f7;
+            color: #020509;
+            font-size: 20px;
+            padding: 6px 12px;
+        }
+
+    .hoots > li .details {
+        position: absolute;
+        top: 0;
+        left: 70px;
+    }
+
+        .hoots > li .details .artist {
+            font-weight: bold;
+            display: block;
+        }
+
+        .hoots > li .details .genre {
+            font-size: 15px;
+        }
