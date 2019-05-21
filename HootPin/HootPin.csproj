@@ -190,6 +190,10 @@
     <Compile Include="Migrations\201905201327171_AddForeignKeyPropertiesToHootsTable.Designer.cs">
       <DependentUpon>201905201327171_AddForeignKeyPropertiesToHootsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905201913229_AddNameToAspNetUsersTable.cs" />
+    <Compile Include="Migrations\201905201913229_AddNameToAspNetUsersTable.Designer.cs">
+      <DependentUpon>201905201913229_AddNameToAspNetUsersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -288,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905201327171_AddForeignKeyPropertiesToHootsTable.resx">
       <DependentUpon>201905201327171_AddForeignKeyPropertiesToHootsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905201913229_AddNameToAspNetUsersTable.resx">
+      <DependentUpon>201905201913229_AddNameToAspNetUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
