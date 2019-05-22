@@ -4,19 +4,38 @@
     ViewBag.Title = "Home Page";
 }
 
-    <ul class="hoots">
-        @foreach (var hoot in Model)
-        {
-            <li>
-                <div class="date">
-                    <div class="month">@hoot.DateTime.ToString("MMM")</div>
-                    <div class="day">@hoot.DateTime.ToString("d ")</div>
-                </div>
+<ul class="hoots">
+    @foreach (var hoot in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">@hoot.DateTime.ToString("MMM")</div>
+                <div class="day">@hoot.DateTime.ToString("d ")</div>
+            </div>
 
-                <div class="details">
-                    <span class="artist">@hoot.Artist.Name</span>
-                    <span class="genre">@hoot.Genre.Name</span>
-                </div>
-            </li>
-        }
-    </ul>
+            <div class="details">
+                <span class="artist">@hoot.Artist.Name</span>
+                <span class="genre">@hoot.Genre.Name</span>
+                <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+            </div>
+        </li>
+    }
+</ul>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-toggle-attendance").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendances", { hootId: button.attr("data-hoot-id") })
+                    .done(function () {
+                        button.removeClass("btn-default").addClass("btn-info").text("Going");
+                    })
+                    .fail(function () {
+                        alert("Something Failed!");
+                    });
+            });
+        });
+    </script>
+}
