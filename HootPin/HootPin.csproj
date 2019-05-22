@@ -179,10 +179,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AttendancesController.cs" />
+    <Compile Include="Controllers\Api\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HootsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dtos\AttendanceDto.cs" />
+    <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -210,10 +212,15 @@
     <Compile Include="Migrations\201905211135194_CreateAttendancesTable.Designer.cs">
       <DependentUpon>201905211135194_CreateAttendancesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905221142291_CreateFollowingsTable.cs" />
+    <Compile Include="Migrations\201905221142291_CreateFollowingsTable.Designer.cs">
+      <DependentUpon>201905221142291_CreateFollowingsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Attendance.cs" />
+    <Compile Include="Models\Following.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Hoot.cs" />
     <Compile Include="ViewModels\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
@@ -331,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905211135194_CreateAttendancesTable.resx">
       <DependentUpon>201905211135194_CreateAttendancesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905221142291_CreateFollowingsTable.resx">
+      <DependentUpon>201905221142291_CreateFollowingsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,7 +14,9 @@
             </div>
 
             <div class="details">
-                <span class="artist">@hoot.Artist.Name</span>
+                <span class="artist">
+                    @hoot.Artist.Name <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@hoot.ArtistId">Follow</button>
+                </span>
                 <span class="genre">@hoot.Genre.Name</span>
                 <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
             </div>
@@ -31,6 +33,17 @@
                 $.post("/api/attendances", { hootId: button.attr("data-hoot-id") })
                     .done(function () {
                         button.removeClass("btn-default").addClass("btn-info").text("Going");
+                    })
+                    .fail(function () {
+                        alert("Something Failed!");
+                    });
+            });
+
+            $(".js-toggle-follow").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                    .done(function () {
+                        button.text("Following");
                     })
                     .fail(function () {
                         alert("Something Failed!");
