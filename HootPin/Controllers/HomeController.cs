@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using HootPin.ViewModels;
 
 namespace HootPin.Controllers
 {
@@ -24,7 +25,13 @@ namespace HootPin.Controllers
                 .Include(h => h.Genre)
                 .Where(h => h.DateTime > DateTime.Now);
 
-            return View(upcomingHoots);
+            var viewModel = new HomeViewModel
+            {
+                UpcomingHoots = upcomingHoots,
+                ShowActions = User.Identity.IsAuthenticated
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult About()

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<HootPin.Models.Hoot>
+﻿@model HootPin.ViewModels.HomeViewModel
 
 @{
     ViewBag.Title = "Home Page";
 }
 
 <ul class="hoots">
-    @foreach (var hoot in Model)
+    @foreach (var hoot in Model.UpcomingHoots)
     {
         <li>
             <div class="date">
@@ -15,11 +15,20 @@
 
             <div class="details">
                 <span class="artist">
-                    @hoot.Artist.Name <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@hoot.ArtistId">Follow</button>
+                    @hoot.Artist.Name
+
+                    @if (Model.ShowActions)
+                    {
+                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@hoot.ArtistId">Follow</button>
+                    }
                 </span>
                 <span class="genre">@hoot.Genre.Name</span>
-                <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
-            </div>
+
+                @if (Model.ShowActions)
+                {
+                    <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+                }
+                </div>
         </li>
     }
 </ul>
