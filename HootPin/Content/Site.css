@@ -23,6 +23,37 @@ textarea {
     max-width: 280px;
 }
 
+span.field-validation-error {
+    color: #FF0038;
+    font-weight: bold;
+}
+
+.voffset {
+    margin-top: 2px
+}
+
+.voffset1 {
+    margin-top: 5px
+}
+
+.voffset2 {
+    margin-top: 10px
+}
+
+.voffset3 {
+    margin-top: 20px
+}
+
+.voffset4 {
+    margin-top: 40px
+}
+
+.voffset5 {
+    margin-top: 80px
+}
+
+/* Bootstrap Overrides */
+
 .navbar-inverse {
     background-color: #FF0038;
     border-color: #FF0038;
@@ -94,11 +125,6 @@ h6,
 .btn {
     /*-ms-border-radius: 9px;*/
     border-radius: 9px;
-}
-
-span.field-validation-error {
-    color: #FF0038;
-    font-weight: bold;
 }
 
 /* Page-level Styles */

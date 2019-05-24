@@ -1,34 +1,29 @@
-﻿@model HootPin.ViewModels.HomeViewModel
+﻿@model IEnumerable<HootPin.Models.Hoot>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Attend";
 }
 
+<h2>Hoots I'm Attending</h2>
+
 <ul class="hoots voffset4">
-    @foreach (var hoot in Model.UpcomingHoots)
+    @foreach (var hoot in Model)
     {
         <li>
             <div class="date">
                 <div class="month">@hoot.DateTime.ToString("MMM")</div>
                 <div class="day">@hoot.DateTime.ToString("d ")</div>
             </div>
-
             <div class="details">
                 <span class="artist">
                     @hoot.Artist.Name
-
-                    @if (Model.ShowActions)
-                    {
-                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@hoot.ArtistId">Follow</button>
-                    }
+                    <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@hoot.ArtistId">Follow</button>
                 </span>
-                <span class="genre">@hoot.Genre.Name</span>
-
-                @if (Model.ShowActions)
-                {
-                    <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
-                }
-                </div>
+                <span class="genre">
+                    @hoot.Genre.Name
+                </span>
+                <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+            </div>
         </li>
     }
 </ul>

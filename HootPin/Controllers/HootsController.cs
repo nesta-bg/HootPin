@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Data.Entity;
 
 namespace HootPin.Controllers
 {
@@ -62,6 +63,34 @@ namespace HootPin.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult Mine()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var hoots = _context.Hoots
+                .Where(h => h.ArtistId == userId && h.DateTime > DateTime.Now)
+                .Include(h => h.Genre)
+                .ToList();
+
+            return View(hoots);
+        }
+
+        [Authorize]
+        public ActionResult Attend()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var hoots = _context.Attendances
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Hoot)
+                .Include(h => h.Artist)
+                .Include(h => h.Genre)
+                .ToList();
+
+            return View(hoots);
         }
     }
 }
