@@ -6,7 +6,7 @@
 <h2>My Upcoming Hoots</h2>
 <ul class="hoots voffset4">
     @foreach (var hoot in Model)
-    {
+     {
         <li>
             <div class="date">
                 <div class="month">@hoot.DateTime.ToString("MMM")</div>
@@ -20,8 +20,11 @@
                 <span class="genre">
                     @hoot.Genre.Name
                 </span>
+                <div class="actions">
+                    <a href="@Url.Action("Edit", "Hoots", new {id = hoot.Id})">Edit</a>
+                </div>
             </div>
         </li>
-    }
+     }
 </ul>
 

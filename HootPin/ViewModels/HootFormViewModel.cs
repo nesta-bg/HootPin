@@ -1,12 +1,17 @@
-﻿using HootPin.Models;
+﻿using HootPin.Controllers;
+using HootPin.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Web.Mvc;
 
 namespace HootPin.ViewModels
 {
     public class HootFormViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Venue { get; set; }
 
@@ -23,9 +28,23 @@ namespace HootPin.ViewModels
 
         public IEnumerable<Genre> Genres { get; set; }
 
+        public string Heading { get; set; }
+
         public DateTime GetDateTime()
         { 
             return DateTime.Parse(string.Format("{0} {1}", Date, Time));
+        }
+
+        public string Action
+        {
+            get
+            {
+                Expression<Func<HootsController, ActionResult>> update = (c => c.Update(this));
+                Expression<Func<HootsController, ActionResult>> create = (c => c.Create(this));
+
+                var action = (Id != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
         }
     }
 }

@@ -22,10 +22,11 @@ namespace HootPin.Controllers
         {
             var viewModel = new HootFormViewModel
             {
-                Genres = _context.Genres.ToList()
+                Genres = _context.Genres.ToList(),
+                Heading = "Add a Hoot"
             };
 
-            return View(viewModel);
+            return View("HootForm", viewModel);
         }
 
         [Authorize]
@@ -48,7 +49,7 @@ namespace HootPin.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Genres = _context.Genres.ToList();
-                return View("Create", viewModel);
+                return View("HootForm", viewModel);
             }
 
             var hoot = new Hoot
@@ -63,6 +64,50 @@ namespace HootPin.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var hoot = _context.Hoots.Single(h => h.Id == id && h.ArtistId == userId);
+
+            var viewModel = new HootFormViewModel
+            {
+                Id = hoot.Id,
+                Genres = _context.Genres.ToList(),
+                Date = hoot.DateTime.ToString("d MMM yyyy"),
+                Time = hoot.DateTime.ToString("HH:mm"),
+                Genre = hoot.GenreId,
+                Venue = hoot.Venue,
+                Heading = "Edit a Hoot"
+            };
+
+            return View("HootForm", viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(HootFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genres = _context.Genres.ToList();
+                return View("HootForm", viewModel);
+            }
+
+            var userId = User.Identity.GetUserId();
+            var hoot = _context.Hoots.Single(h => h.Id == viewModel.Id && h.ArtistId == userId);
+
+            hoot.Venue = viewModel.Venue;
+            hoot.DateTime = viewModel.GetDateTime();
+            hoot.GenreId = viewModel.Genre;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Mine", "Hoots");
         }
 
         [Authorize]

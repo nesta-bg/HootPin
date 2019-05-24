@@ -303,7 +303,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Hoots\Create.cshtml" />
+    <Content Include="Views\Hoots\HootForm.cshtml" />
     <Content Include="Views\Hoots\Mine.cshtml" />
     <Content Include="Views\Hoots\Attend.cshtml" />
   </ItemGroup>
