@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201905241935123_AddIsCanceledToHootsTable.Designer.cs">
       <DependentUpon>201905241935123_AddIsCanceledToHootsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905271042372_CreateNotificationsAndUserNotificationsTables.cs" />
+    <Compile Include="Migrations\201905271042372_CreateNotificationsAndUserNotificationsTables.Designer.cs">
+      <DependentUpon>201905271042372_CreateNotificationsAndUserNotificationsTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -228,6 +232,9 @@
     <Compile Include="Models\Following.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Hoot.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\UserNotification.cs" />
     <Compile Include="ViewModels\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\ForgotPasswordViewModel.cs" />
@@ -353,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905241935123_AddIsCanceledToHootsTable.resx">
       <DependentUpon>201905241935123_AddIsCanceledToHootsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905271042372_CreateNotificationsAndUserNotificationsTables.resx">
+      <DependentUpon>201905271042372_CreateNotificationsAndUserNotificationsTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
