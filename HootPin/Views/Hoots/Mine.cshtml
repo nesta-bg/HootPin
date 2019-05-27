@@ -6,7 +6,7 @@
 <h2>My Upcoming Hoots</h2>
 <ul class="hoots voffset4">
     @foreach (var hoot in Model)
-     {
+    {
         <li>
             <div class="date">
                 <div class="month">@hoot.DateTime.ToString("MMM")</div>
@@ -22,9 +22,50 @@
                 </span>
                 <div class="actions">
                     <a href="@Url.Action("Edit", "Hoots", new {id = hoot.Id})">Edit</a>
+                    <a href="#" class="js-cancel-hoot" data-hoot-id="@hoot.Id">Cancel</a>
                 </div>
             </div>
         </li>
-     }
+    }
 </ul>
 
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".js-cancel-hoot").click(function (e) {
+                var link = $(e.target);
+                 bootbox.dialog({
+                    title: "Confirm",
+                    message: "Are you sure you want to cancel this hoot?",
+                    buttons: {
+                        no: {
+                            label: "No",
+                            className: "btn-default",
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Yes",
+                            className: "btn-danger",
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/hoots/" + link.attr("data-hoot-id"),
+                                    method: "DELETE"
+                                })
+                                    .done(function () {
+                                        link.parents("li").fadeOut(function () {
+                                            $(this).remove();
+                                        });
+                                    })
+                                    .fail(function () {
+                                        alert("Something Failed!");
+                                    })
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

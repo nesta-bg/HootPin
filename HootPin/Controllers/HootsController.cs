@@ -116,7 +116,9 @@ namespace HootPin.Controllers
             var userId = User.Identity.GetUserId();
 
             var hoots = _context.Hoots
-                .Where(h => h.ArtistId == userId && h.DateTime > DateTime.Now)
+                .Where(h => h.ArtistId == userId && 
+                    h.DateTime > DateTime.Now && 
+                    !h.IsCanceled)
                 .Include(h => h.Genre)
                 .ToList();
 

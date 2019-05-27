@@ -8,7 +8,7 @@
 
 <ul class="hoots voffset4">
     @foreach (var hoot in Model)
-    {
+     {
         <li>
             <div class="date">
                 <div class="month">@hoot.DateTime.ToString("MMM")</div>
@@ -17,15 +17,25 @@
             <div class="details">
                 <span class="artist">
                     @hoot.Artist.Name
+
+                    @if (hoot.IsCanceled)
+                     {
+                        <span class="label label-warning">Canceled</span>
+                     }
+
                     <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@hoot.ArtistId">Follow</button>
                 </span>
                 <span class="genre">
                     @hoot.Genre.Name
                 </span>
-                <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+
+                @if (!hoot.IsCanceled)
+                 {
+                    <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+                 }
             </div>
         </li>
-    }
+     }
 </ul>
 
 @section scripts
