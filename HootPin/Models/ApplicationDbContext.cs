@@ -26,7 +26,7 @@ namespace HootPin.Models
         {
             modelBuilder.Entity<Attendance>()
                 .HasRequired(a => a.Hoot)
-                .WithMany()
+                .WithMany(h => h.Attendances)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ApplicationUser>()
@@ -41,7 +41,7 @@ namespace HootPin.Models
 
             modelBuilder.Entity<UserNotification>()
                 .HasRequired(n => n.User)
-                .WithMany()
+                .WithMany(u => u.UserNotifications)
                 .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);

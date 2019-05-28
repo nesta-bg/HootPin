@@ -23,7 +23,8 @@ namespace HootPin.Controllers
             var upcomingHoots = _context.Hoots
                 .Include(h => h.Artist)
                 .Include(h => h.Genre)
-                .Where(h => h.DateTime > DateTime.Now && !h.IsCanceled);
+                .Where(h => h.DateTime > DateTime.Now && !h.IsCanceled)
+                .OrderBy(h => h.DateTime);
 
             var viewModel = new HomeViewModel
             {

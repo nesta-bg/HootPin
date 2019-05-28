@@ -34,32 +34,21 @@ namespace HootPin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(HootFormViewModel viewModel)
         {
-            /*
-            var artistId = User.Identity.GetUserId();
-            var artist = _context.Users.Single(u => u.Id == artistId);
-            var genre = _context.Genres.Single(g => g.Id == viewModel.Genre);
-
-            var hoot = new Hoot
-            {
-                Artist = artist,
-                Genre = genre
-            };
-            */
-
             if (!ModelState.IsValid)
             {
                 viewModel.Genres = _context.Genres.ToList();
                 return View("HootForm", viewModel);
             }
 
-            var hoot = new Hoot
-            {
-                ArtistId = User.Identity.GetUserId(),
-                DateTime = viewModel.GetDateTime(),
-                GenreId = viewModel.Genre,
-                Venue = viewModel.Venue
-            };
+            var userId = User.Identity.GetUserId();
 
+            var artist = _context.Users
+                .Include(u => u.Followers.Select(f => f.Follower))
+                .Single(u => u.Id == userId);
+                
+            var hoot = new Hoot();
+            hoot = hoot.Create(artist, userId, viewModel.GetDateTime(), viewModel.Genre, viewModel.Venue);
+            
             _context.Hoots.Add(hoot);
             _context.SaveChanges();
 
@@ -99,11 +88,11 @@ namespace HootPin.Controllers
             }
 
             var userId = User.Identity.GetUserId();
-            var hoot = _context.Hoots.Single(h => h.Id == viewModel.Id && h.ArtistId == userId);
+            var hoot = _context.Hoots
+                .Include(h => h.Attendances.Select(a => a.Attendee))
+                .Single(h => h.Id == viewModel.Id && h.ArtistId == userId);
 
-            hoot.Venue = viewModel.Venue;
-            hoot.DateTime = viewModel.GetDateTime();
-            hoot.GenreId = viewModel.Genre;
+            hoot.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre);
 
             _context.SaveChanges();
 
@@ -120,6 +109,7 @@ namespace HootPin.Controllers
                     h.DateTime > DateTime.Now && 
                     !h.IsCanceled)
                 .Include(h => h.Genre)
+                .OrderBy(h => h.DateTime)
                 .ToList();
 
             return View(hoots);
@@ -135,6 +125,7 @@ namespace HootPin.Controllers
                 .Select(a => a.Hoot)
                 .Include(h => h.Artist)
                 .Include(h => h.Genre)
+                .OrderBy( h => h.DateTime)
                 .ToList();
 
             return View(hoots);
