@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using Newtonsoft.Json.Serialization;
+using System.Web.Http;
 
 namespace HootPin
 {
@@ -6,6 +7,10 @@ namespace HootPin
     {
         public static void Register(HttpConfiguration config)
         {
+            var settings = GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings;
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            settings.Formatting = Newtonsoft.Json.Formatting.Indented;
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
