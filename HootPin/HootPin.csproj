@@ -181,6 +181,7 @@
     <Compile Include="Controllers\Api\AttendancesController.cs" />
     <Compile Include="Controllers\Api\FollowingsController.cs" />
     <Compile Include="Controllers\Api\HootsController.cs" />
+    <Compile Include="Controllers\FolloweesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HootsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -319,6 +320,7 @@
     <Content Include="Views\Hoots\HootForm.cshtml" />
     <Content Include="Views\Hoots\Mine.cshtml" />
     <Content Include="Views\Hoots\Attend.cshtml" />
+    <Content Include="Views\Followees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

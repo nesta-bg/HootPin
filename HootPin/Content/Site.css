@@ -183,4 +183,14 @@ h6,
 
     .hoots > li:hover .actions {
         display: block;
-    } 
+    }
+
+.followees {
+    list-style: none;
+}
+
+    .followees > li .artist {
+        font-weight: bold;
+        display: block;
+    }
+

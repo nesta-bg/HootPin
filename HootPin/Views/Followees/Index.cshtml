@@ -1,0 +1,22 @@
+﻿@model IEnumerable<HootPin.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Followees</h2>
+
+<ul class="followees voffset4">
+    @foreach (var followee in Model)
+    {
+        <li>
+            <span class="artist">
+                @followee.Name
+            </span>
+        </li>
+    }
+</ul>
+
+
+
+
