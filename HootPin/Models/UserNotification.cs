@@ -18,7 +18,7 @@ namespace HootPin.Models
 
         public Notification Notification { get; private set; }
 
-        public bool IsRead { get; set; }
+        public bool IsRead { get; private set; }
 
         public UserNotification()
         {
@@ -35,6 +35,11 @@ namespace HootPin.Models
 
             User = user;
             Notification = notification;
+        }
+
+        public void Read()
+        {
+            IsRead = true;
         }
     }
 }
