@@ -73,6 +73,17 @@ span.field-validation-error {
         background-color: #e60032;
     }
 
+    .navbar-inverse .notifications {
+        position: relative;
+    }
+
+        .navbar-inverse .notifications .badge {
+            position: absolute;
+            top: 8px;
+            right: -1px;
+            background: #a80a0a;
+        }
+
 .dropdown-menu {
     box-shadow: none;
     -webkit-box-shadow: none;
