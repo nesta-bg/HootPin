@@ -128,7 +128,20 @@ namespace HootPin.Controllers
                 .OrderBy( h => h.DateTime)
                 .ToList();
 
-            return View(hoots);
+            var viewModel = new HootsViewModel
+            {
+                UpcomingHoots = hoots,
+                ShowActions = User.Identity.IsAuthenticated,
+                Heading = "Hoots I'm Attending."
+            };
+
+            return View("Hoots", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Search(HootsViewModel viewModel)
+        {
+            return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
         }
     }
 }

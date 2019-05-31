@@ -1,11 +1,9 @@
 ﻿using HootPin.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Data.Entity;
 using HootPin.ViewModels;
+using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace HootPin.Controllers
 {
@@ -18,21 +16,36 @@ namespace HootPin.Controllers
             _context = new ApplicationDbContext();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string query = null)
         {
             var upcomingHoots = _context.Hoots
                 .Include(h => h.Artist)
                 .Include(h => h.Genre)
                 .Where(h => h.DateTime > DateTime.Now && !h.IsCanceled)
-                .OrderBy(h => h.DateTime);
+                .OrderBy(h => h.DateTime)
+                .ToList();
 
-            var viewModel = new HomeViewModel
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                upcomingHoots = upcomingHoots
+                    .Where(h =>
+                            h.Artist.Name.Contains(query) ||
+                            h.Genre.Name.Contains(query) ||
+                            h.Venue.Contains(query)
+                            )
+                    .OrderBy(h => h.DateTime)
+                    .ToList();
+            }
+
+            var viewModel = new HootsViewModel
             {
                 UpcomingHoots = upcomingHoots,
-                ShowActions = User.Identity.IsAuthenticated
+                ShowActions = User.Identity.IsAuthenticated,
+                SearchTerm = query,
+                Heading = "Upcoming Hoots"
             };
 
-            return View(viewModel);
+            return View("Hoots", viewModel);
         }
 
         public ActionResult About()

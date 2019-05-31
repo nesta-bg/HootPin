@@ -1,19 +1,32 @@
-﻿@model IEnumerable<HootPin.Models.Hoot>
+﻿@model HootPin.ViewModels.HootsViewModel
 
 @{
-    ViewBag.Title = "Attend";
+    ViewBag.Title = @Model.Heading;
 }
 
-<h2>Hoots I'm Attending</h2>
+<h2>@Model.Heading</h2>
+
+@using (Html.BeginForm("Search", "Hoots"))
+ {
+    <div class="form-group">
+        <div id="searchHoots" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search by artist, genre, venue" })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+ }
 
 <ul class="hoots voffset4">
-    @foreach (var hoot in Model)
+    @foreach (var hoot in Model.UpcomingHoots)
      {
         <li>
             <div class="date">
                 <div class="month">@hoot.DateTime.ToString("MMM")</div>
                 <div class="day">@hoot.DateTime.ToString("d ")</div>
             </div>
+
             <div class="details">
                 <span class="artist">
                     @hoot.Artist.Name
@@ -23,13 +36,14 @@
                         <span class="label label-warning">Canceled</span>
                      }
 
-                    <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@hoot.ArtistId">Follow</button>
+                    @if (Model.ShowActions)
+                     {
+                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@hoot.ArtistId">Follow</button>
+                     }
                 </span>
-                <span class="genre">
-                    @hoot.Genre.Name
-                </span>
+                <span class="genre">@hoot.Genre.Name</span>
 
-                @if (!hoot.IsCanceled)
+                @if (Model.ShowActions && !hoot.IsCanceled)
                  {
                     <button data-hoot-id="@hoot.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
                  }
