@@ -255,6 +255,7 @@
     <Compile Include="ViewModels\AccountViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\VerifyCodeViewModel.cs" />
+    <Compile Include="ViewModels\HootDetailsViewModel.cs" />
     <Compile Include="ViewModels\HootsViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\ChangePasswordViewModel.cs" />
@@ -343,6 +344,7 @@
     <Content Include="Views\Hoots\Mine.cshtml" />
     <Content Include="Views\Followees\Index.cshtml" />
     <Content Include="Views\Shared\Hoots.cshtml" />
+    <Content Include="Views\Hoots\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

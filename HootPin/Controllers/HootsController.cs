@@ -143,5 +143,31 @@ namespace HootPin.Controllers
         {
             return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
         }
+
+        public ActionResult Details(int id)
+        {
+            var hoot = _context.Hoots
+                .Include(h => h.Artist)
+                .Include(h => h.Genre)
+                .Single(h => h.Id == id);
+
+            if (hoot == null)
+                return HttpNotFound();
+
+            var viewModel = new HootDetailsViewModel { Hoot = hoot };
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+
+                viewModel.IsAttending = _context.Attendances
+                   .Any(a => a.HootId == hoot.Id && a.AttendeeId == userId);
+
+                viewModel.IsFollowing = _context.Followings
+                    .Any(f => f.FolloweeId == hoot.ArtistId && f.FollowerId == userId);
+            }
+
+            return View("Details", viewModel);
+        }
     }
 }
