@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using HootPin.Dtos;
+using System;
 
 namespace HootPin.Controllers.Api
 {
@@ -19,17 +20,32 @@ namespace HootPin.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
-        public IEnumerable<NotificationDto> GetNewNotifications()
+        public NotificationsDto GetNewNotifications()
         {
             var userId = User.Identity.GetUserId();
+            var lastMonth = DateTime.Now.AddDays(-30);
 
-            var notifications = _context.UserNotifications
-                .Where(un => un.UserId == userId && !un.IsRead)
+            var recentNotifications = _context.UserNotifications
+                .Where(un => un.UserId == userId)
                 .Select(un => un.Notification)
+                .Where(n => n.DateTime > lastMonth)
                 .Include(n => n.Hoot.Artist)
                 .ToList();
 
-            return notifications.Select(Mapper.Map<Notification, NotificationDto>);
+            var recentNotificationsDto = recentNotifications.Select(Mapper.Map<Notification, NotificationDto>);
+
+            var notificationsDto = new NotificationsDto();
+            notificationsDto.RecentNotifications = recentNotificationsDto;
+
+            var newNotifications = _context.UserNotifications
+                .Where(un => un.UserId == userId && !un.IsRead)
+                .Select(un => un.Notification)
+                .Where(n => n.DateTime > lastMonth)
+                .Count();
+
+            notificationsDto.NumberOfNewNotifications = newNotifications;
+
+            return notificationsDto;
         }
 
         [HttpPost]
