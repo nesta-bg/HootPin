@@ -1,5 +1,6 @@
 ﻿using HootPin.Models;
 using HootPin.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -37,12 +38,19 @@ namespace HootPin.Controllers
                     .ToList();
             }
 
+            var userId = User.Identity.GetUserId();
+            var attendances = _context.Attendances
+                .Where(a => a.AttendeeId == userId && a.Hoot.DateTime > DateTime.Now)
+                .ToList()
+                .ToLookup(a => a.HootId);
+
             var viewModel = new HootsViewModel
             {
                 UpcomingHoots = upcomingHoots,
                 ShowActions = User.Identity.IsAuthenticated,
                 SearchTerm = query,
-                Heading = "Upcoming Hoots"
+                Heading = "Upcoming Hoots",
+                Attendances = attendances
             };
 
             return View("Hoots", viewModel);

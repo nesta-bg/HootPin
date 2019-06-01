@@ -128,11 +128,17 @@ namespace HootPin.Controllers
                 .OrderBy( h => h.DateTime)
                 .ToList();
 
+            var attendances = _context.Attendances
+              .Where(a => a.AttendeeId == userId && a.Hoot.DateTime > DateTime.Now)
+              .ToList()
+              .ToLookup(a => a.HootId);
+
             var viewModel = new HootsViewModel
             {
                 UpcomingHoots = hoots,
                 ShowActions = User.Identity.IsAuthenticated,
-                Heading = "Hoots I'm Attending."
+                Heading = "Hoots I'm Attending.",
+                Attendances = attendances
             };
 
             return View("Hoots", viewModel);
