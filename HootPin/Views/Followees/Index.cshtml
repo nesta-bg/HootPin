@@ -12,11 +12,31 @@
         <li>
             <span class="artist">
                 @followee.Name
+                <button class="btn btn-info js-unfollow" data-user-id="@followee.Id">Unfollow</button>
             </span>
         </li>
     }
 </ul>
 
+@section scripts  {
+    <script>
+        $(document).ready(function () {
+             $(".js-unfollow").click(function (e) {
+                 var button = $(e.target);
+                     $.ajax({
+                        url: "/api/followings/" + button.attr("data-user-id"),
+                        method: "DELETE"
+                    })
+                         .done(function () {
+                             button.parents("li").remove();
+                     })
+                    .fail(function () {
+                            alert("Something Failed!");
+                    });
+            });
+        });
+    </script>
+}
 
 
 

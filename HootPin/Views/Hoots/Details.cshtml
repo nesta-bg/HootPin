@@ -7,23 +7,53 @@
 <h2>
     @Model.Hoot.Artist.Name
     @if (User.Identity.IsAuthenticated)
-    {
+     {
         if (Model.IsFollowing)
         {
-            <button class="btn btn-info">Following</button>
+            <button class="btn btn-info js-toggle-follow" data-user-id="@Model.Hoot.ArtistId">Following</button>
         }
         else
         {
-            <button class="btn btn-default">Follow</button>
+            <button class="btn btn-default js-toggle-follow" data-user-id="@Model.Hoot.ArtistId">Follow</button>
         }
-    }
+     }
 </h2>
 
 <p>Performing at @Model.Hoot.Venue on @Model.Hoot.DateTime.ToString("d MMM") at @Model.Hoot.DateTime.ToString("HH:mm")</p>
 
 
 @if (User.Identity.IsAuthenticated && Model.IsAttending)
-{
+ {
     <p>You are going to this event. </p>
+ }
+
+@section scripts  {
+    <script>
+        $(document).ready(function () {
+             $(".js-toggle-follow").click(function (e) {
+                 var button = $(e.target);
+                 if (button.hasClass("btn-default")) {
+                     $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                         .done(function () {
+                             button.removeClass("btn-default").addClass("btn-info").text("Following");
+                         })
+                         .fail(function () {
+                             alert("Something Failed!");
+                         });
+                 } else {
+                     $.ajax({
+                        url: "/api/followings/" + button.attr("data-user-id"),
+                        method: "DELETE"
+                    })
+                     .done(function () {
+                        button.removeClass("btn-info").addClass("btn-default").text("Follow");
+                     })
+                    .fail(function () {
+                            alert("Something Failed!");
+                    });
+                 }
+            });
+        });
+    </script>
 }
 

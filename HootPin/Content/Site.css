@@ -196,7 +196,7 @@ h6 {
 }
 .hoots > li {
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 .hoots > li .date {
   background: #FFCE38;
@@ -227,7 +227,9 @@ h6 {
   display: block;
 }
 .hoots > li .details .genre {
-  font-size: 15px;
+  font-size: 14px;
+  display: block;
+  margin: 4px;
 }
 .hoots > li .actions {
   font-size: 15px;
