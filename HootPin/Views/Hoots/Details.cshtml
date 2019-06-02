@@ -21,6 +21,7 @@
 
 <p>Performing at @Model.Hoot.Venue on @Model.Hoot.DateTime.ToString("d MMM") at @Model.Hoot.DateTime.ToString("HH:mm")</p>
 
+<p>Number of attendees: @Model.Hoot.Attendances.Count </p>
 
 @if (User.Identity.IsAuthenticated && Model.IsAttending)
  {

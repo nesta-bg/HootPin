@@ -155,6 +155,7 @@ namespace HootPin.Controllers
             var hoot = _context.Hoots
                 .Include(h => h.Artist)
                 .Include(h => h.Genre)
+                .Include(h => h.Attendances)
                 .Single(h => h.Id == id);
 
             if (hoot == null)
