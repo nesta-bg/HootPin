@@ -8,6 +8,15 @@ namespace HootPin
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                        "~/Scripts/app/services/attendanceService.js",
+                        "~/Scripts/app/services/followingService.js",
+                        "~/Scripts/app/services/cancelHootService.js",
+                        "~/Scripts/app/controllers/hootsController.js",
+                        "~/Scripts/app/controllers/hootDetailsController.js",
+                        "~/Scripts/app/controllers/followeesController.js",
+                        "~/Scripts/app/controllers/myHootsController.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/underscore-min.js",
@@ -24,9 +33,9 @@ namespace HootPin
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/animate.css",
-                      "~/Content/site.css"));
+                        "~/Content/bootstrap.css",
+                        "~/Content/animate.css",
+                        "~/Content/site.css"));
         }
     }
 }

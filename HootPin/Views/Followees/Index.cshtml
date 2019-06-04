@@ -21,19 +21,7 @@
 @section scripts  {
     <script>
         $(document).ready(function () {
-             $(".js-unfollow").click(function (e) {
-                 var button = $(e.target);
-                     $.ajax({
-                        url: "/api/followings/" + button.attr("data-user-id"),
-                        method: "DELETE"
-                    })
-                         .done(function () {
-                             button.parents("li").remove();
-                     })
-                    .fail(function () {
-                            alert("Something Failed!");
-                    });
-            });
+            FolloweesController.init();
         });
     </script>
 }

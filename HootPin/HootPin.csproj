@@ -291,6 +291,13 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\controllers\followeesController.js" />
+    <Content Include="Scripts\app\controllers\hootDetailsController.js" />
+    <Content Include="Scripts\app\controllers\hootsController.js" />
+    <Content Include="Scripts\app\controllers\myHootsController.js" />
+    <Content Include="Scripts\app\services\attendanceService.js" />
+    <Content Include="Scripts\app\services\cancelHootService.js" />
+    <Content Include="Scripts\app\services\followingService.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

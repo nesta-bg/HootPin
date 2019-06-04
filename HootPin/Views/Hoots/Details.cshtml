@@ -31,29 +31,7 @@
 @section scripts  {
     <script>
         $(document).ready(function () {
-             $(".js-toggle-follow").click(function (e) {
-                 var button = $(e.target);
-                 if (button.hasClass("btn-default")) {
-                     $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                         .done(function () {
-                             button.removeClass("btn-default").addClass("btn-info").text("Following");
-                         })
-                         .fail(function () {
-                             alert("Something Failed!");
-                         });
-                 } else {
-                     $.ajax({
-                        url: "/api/followings/" + button.attr("data-user-id"),
-                        method: "DELETE"
-                    })
-                     .done(function () {
-                        button.removeClass("btn-info").addClass("btn-default").text("Follow");
-                     })
-                    .fail(function () {
-                            alert("Something Failed!");
-                    });
-                 }
-            });
+            HootDetailsController.init();
         });
     </script>
 }
