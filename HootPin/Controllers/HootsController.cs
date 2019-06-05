@@ -5,16 +5,19 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
+using HootPin.Persistence;
 
 namespace HootPin.Controllers
 {
     public class HootsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
         public HootsController()
         {
             _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(_context);
         }
 
         [Authorize]
@@ -22,7 +25,7 @@ namespace HootPin.Controllers
         {
             var viewModel = new HootFormViewModel
             {
-                Genres = _context.Genres.ToList(),
+                Genres = _unitOfWork.Genres.GetGenres(),
                 Heading = "Add a Hoot"
             };
 
@@ -36,21 +39,19 @@ namespace HootPin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.Genres = _context.Genres.ToList();
+                viewModel.Genres = _unitOfWork.Genres.GetGenres();
                 return View("HootForm", viewModel);
             }
 
             var userId = User.Identity.GetUserId();
 
-            var artist = _context.Users
-                .Include(u => u.Followers.Select(f => f.Follower))
-                .Single(u => u.Id == userId);
+            var artist = _unitOfWork.Users.GeArtistWithFollowers(userId);
                 
             var hoot = new Hoot();
             hoot = hoot.Create(artist, userId, viewModel.GetDateTime(), viewModel.Genre, viewModel.Venue);
-            
-            _context.Hoots.Add(hoot);
-            _context.SaveChanges();
+
+            _unitOfWork.Hoots.Add(hoot);
+            _unitOfWork.Complete();
 
             return RedirectToAction("Index", "Home");
         }
@@ -60,12 +61,12 @@ namespace HootPin.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var hoot = _context.Hoots.Single(h => h.Id == id && h.ArtistId == userId);
+            var hoot = _unitOfWork.Hoots.GetHootByUser(id, userId);
 
             var viewModel = new HootFormViewModel
             {
                 Id = hoot.Id,
-                Genres = _context.Genres.ToList(),
+                Genres = _unitOfWork.Genres.GetGenres(),
                 Date = hoot.DateTime.ToString("d MMM yyyy"),
                 Time = hoot.DateTime.ToString("HH:mm"),
                 Genre = hoot.GenreId,
@@ -83,18 +84,16 @@ namespace HootPin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.Genres = _context.Genres.ToList();
+                viewModel.Genres = _unitOfWork.Genres.GetGenres();
                 return View("HootForm", viewModel);
             }
 
             var userId = User.Identity.GetUserId();
-            var hoot = _context.Hoots
-                .Include(h => h.Attendances.Select(a => a.Attendee))
-                .Single(h => h.Id == viewModel.Id && h.ArtistId == userId);
+            var hoot = _unitOfWork.Hoots.GetHootWithAttendees(viewModel.Id, userId);
 
             hoot.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return RedirectToAction("Mine", "Hoots");
         }
@@ -104,13 +103,7 @@ namespace HootPin.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var hoots = _context.Hoots
-                .Where(h => h.ArtistId == userId && 
-                    h.DateTime > DateTime.Now && 
-                    !h.IsCanceled)
-                .Include(h => h.Genre)
-                .OrderBy(h => h.DateTime)
-                .ToList();
+            var hoots = _unitOfWork.Hoots.GetUpcomingHootsByArtist(userId);
 
             return View(hoots);
         }
@@ -120,18 +113,9 @@ namespace HootPin.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var hoots = _context.Attendances
-                .Where(a => a.AttendeeId == userId)
-                .Select(a => a.Hoot)
-                .Include(h => h.Artist)
-                .Include(h => h.Genre)
-                .OrderBy( h => h.DateTime)
-                .ToList();
+            var hoots = _unitOfWork.Hoots.GetHootsUserAttending(userId);
 
-            var attendances = _context.Attendances
-              .Where(a => a.AttendeeId == userId && a.Hoot.DateTime > DateTime.Now)
-              .ToList()
-              .ToLookup(a => a.HootId);
+            var attendances = _unitOfWork.Attendances.GetFutureAttendancesByAttendee(userId);
 
             var viewModel = new HootsViewModel
             {
@@ -152,11 +136,7 @@ namespace HootPin.Controllers
 
         public ActionResult Details(int id)
         {
-            var hoot = _context.Hoots
-                .Include(h => h.Artist)
-                .Include(h => h.Genre)
-                .Include(h => h.Attendances)
-                .Single(h => h.Id == id);
+            var hoot = _unitOfWork.Hoots.GetHoot(id);
 
             if (hoot == null)
                 return HttpNotFound();
@@ -167,11 +147,9 @@ namespace HootPin.Controllers
             {
                 var userId = User.Identity.GetUserId();
 
-                viewModel.IsAttending = _context.Attendances
-                   .Any(a => a.HootId == hoot.Id && a.AttendeeId == userId);
+                viewModel.IsAttending = _unitOfWork.Attendances.GetAttendance(hoot.Id, userId) != null;
 
-                viewModel.IsFollowing = _context.Followings
-                    .Any(f => f.FolloweeId == hoot.ArtistId && f.FollowerId == userId);
+                viewModel.IsFollowing = _unitOfWork.Followings.GetFollowing(userId, hoot.ArtistId) != null;
             }
 
             return View("Details", viewModel);

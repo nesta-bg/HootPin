@@ -1,9 +1,8 @@
 ﻿using HootPin.Models;
+using HootPin.Persistence;
 using HootPin.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Data.Entity;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace HootPin.Controllers
@@ -11,38 +10,26 @@ namespace HootPin.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
         public HomeController()
         {
             _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(_context);
         }
 
         public ActionResult Index(string query = null)
         {
-            var upcomingHoots = _context.Hoots
-                .Include(h => h.Artist)
-                .Include(h => h.Genre)
-                .Where(h => h.DateTime > DateTime.Now && !h.IsCanceled)
-                .OrderBy(h => h.DateTime)
-                .ToList();
+            var upcomingHoots = _unitOfWork.Hoots.GetUpcomingHootsWithArtistsAndGenres();
 
             if (!String.IsNullOrWhiteSpace(query))
             {
-                upcomingHoots = upcomingHoots
-                    .Where(h =>
-                            h.Artist.Name.Contains(query) ||
-                            h.Genre.Name.Contains(query) ||
-                            h.Venue.Contains(query)
-                            )
-                    .OrderBy(h => h.DateTime)
-                    .ToList();
+                upcomingHoots = _unitOfWork.Hoots.GetHootsByQuery(upcomingHoots, query);
             }
 
             var userId = User.Identity.GetUserId();
-            var attendances = _context.Attendances
-                .Where(a => a.AttendeeId == userId && a.Hoot.DateTime > DateTime.Now)
-                .ToList()
-                .ToLookup(a => a.HootId);
+
+            var attendances = _unitOfWork.Attendances.GetFutureAttendancesByAttendee(userId);
 
             var viewModel = new HootsViewModel
             {
