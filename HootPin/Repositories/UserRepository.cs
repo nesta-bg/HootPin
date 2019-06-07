@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace HootPin.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
         public UserRepository(ApplicationDbContext context)

@@ -1,23 +1,18 @@
 ﻿using HootPin.Models;
-using HootPin.ViewModels;
-using System.Web.Mvc;
-using System.Linq;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Data.Entity;
 using HootPin.Persistence;
+using HootPin.ViewModels;
+using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
 
 namespace HootPin.Controllers
 {
     public class HootsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HootsController()
+        public HootsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
-            _unitOfWork = new UnitOfWork(_context);
+            _unitOfWork = unitOfWork;
         }
 
         [Authorize]
@@ -46,7 +41,7 @@ namespace HootPin.Controllers
             var userId = User.Identity.GetUserId();
 
             var artist = _unitOfWork.Users.GeArtistWithFollowers(userId);
-                
+
             var hoot = new Hoot();
             hoot = hoot.Create(artist, userId, viewModel.GetDateTime(), viewModel.Genre, viewModel.Venue);
 

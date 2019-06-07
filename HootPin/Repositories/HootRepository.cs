@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace HootPin.Repositories
 {
-    public class HootRepository
+    public class HootRepository : IHootRepository
     {
         private readonly ApplicationDbContext _context;
 

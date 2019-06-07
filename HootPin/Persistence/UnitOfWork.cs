@@ -3,15 +3,15 @@ using HootPin.Repositories;
 
 namespace HootPin.Persistence
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
 
-        public HootRepository Hoots { get; private set; }
-        public AttendanceRepository Attendances { get; private set; }
-        public FollowingRepository Followings { get; private set; }
-        public GenreRepository Genres { get; private set; }
-        public UserRepository Users { get; private set; }
+        public IHootRepository Hoots { get; private set; }
+        public IAttendanceRepository Attendances { get; private set; }
+        public IFollowingRepository Followings { get; private set; }
+        public IGenreRepository Genres { get; private set; }
+        public IUserRepository Users { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {

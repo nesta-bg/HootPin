@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace HootPin.Repositories
 {
-    public class AttendanceRepository
+    public class AttendanceRepository :IAttendanceRepository
     {
         private readonly ApplicationDbContext _context;
         public AttendanceRepository(ApplicationDbContext context)

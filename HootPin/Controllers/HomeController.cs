@@ -1,5 +1,4 @@
-﻿using HootPin.Models;
-using HootPin.Persistence;
+﻿using HootPin.Persistence;
 using HootPin.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
@@ -9,13 +8,11 @@ namespace HootPin.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController()
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
-            _unitOfWork = new UnitOfWork(_context);
+            _unitOfWork = unitOfWork;
         }
 
         public ActionResult Index(string query = null)

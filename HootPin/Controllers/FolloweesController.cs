@@ -1,5 +1,4 @@
-﻿using HootPin.Models;
-using HootPin.Persistence;
+﻿using HootPin.Persistence;
 using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 
@@ -7,13 +6,11 @@ namespace HootPin.Controllers
 {
     public class FolloweesController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public FolloweesController()
+        public FolloweesController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
-            _unitOfWork = new UnitOfWork(_context);
+            _unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
