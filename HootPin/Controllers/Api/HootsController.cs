@@ -1,4 +1,4 @@
-﻿using HootPin.Models;
+﻿using HootPin.Persistence;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Linq;

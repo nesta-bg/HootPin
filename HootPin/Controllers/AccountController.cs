@@ -1,5 +1,5 @@
-﻿using HootPin.Models;
-using HootPin.ViewModels.AccountViewModels;
+﻿using HootPin.Core.Models;
+using HootPin.Core.ViewModels.AccountViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;

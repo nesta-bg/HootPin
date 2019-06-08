@@ -1,5 +1,6 @@
-﻿using HootPin.Models;
-using HootPin.Repositories;
+﻿using HootPin.Core;
+using HootPin.Core.Repositories;
+using HootPin.Persistence.Repositories;
 
 namespace HootPin.Persistence
 {

@@ -5,7 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using HootPin.Models;
+using HootPin.Persistence;
+using HootPin.Core.Models;
 
 namespace HootPin
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using HootPin.Dtos;
-using HootPin.Models;
+using HootPin.Core.Dtos;
+using HootPin.Core.Models;
 
 namespace HootPin.App_Start
 {

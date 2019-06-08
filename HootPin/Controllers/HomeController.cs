@@ -1,5 +1,5 @@
-﻿using HootPin.Persistence;
-using HootPin.ViewModels;
+﻿using HootPin.Core;
+using HootPin.Core.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Web.Mvc;

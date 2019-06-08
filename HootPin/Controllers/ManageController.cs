@@ -1,4 +1,4 @@
-﻿using HootPin.ViewModels.ManageViewModels;
+﻿using HootPin.Core.ViewModels.ManageViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;

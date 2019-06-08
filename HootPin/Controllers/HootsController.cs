@@ -1,6 +1,6 @@
-﻿using HootPin.Models;
-using HootPin.Persistence;
-using HootPin.ViewModels;
+﻿using HootPin.Core;
+using HootPin.Core.Models;
+using HootPin.Core.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 

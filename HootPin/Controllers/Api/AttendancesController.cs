@@ -1,5 +1,6 @@
-﻿using HootPin.Dtos;
-using HootPin.Models;
+﻿using HootPin.Core.Dtos;
+using HootPin.Core.Models;
+using HootPin.Persistence;
 using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web.Http;

@@ -1,4 +1,4 @@
-﻿using HootPin.Persistence;
+﻿using HootPin.Core;
 using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 

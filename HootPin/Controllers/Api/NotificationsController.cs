@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using HootPin.Models;
+using HootPin.Core.Dtos;
+using HootPin.Core.Models;
+using HootPin.Persistence;
 using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
-using HootPin.Dtos;
-using System;
 
 namespace HootPin.Controllers.Api
 {
