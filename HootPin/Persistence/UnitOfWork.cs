@@ -13,6 +13,7 @@ namespace HootPin.Persistence
         public IFollowingRepository Followings { get; private set; }
         public IGenreRepository Genres { get; private set; }
         public IUserRepository Users { get; private set; }
+        public IUserNotificationRepository UserNotifications { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -23,6 +24,7 @@ namespace HootPin.Persistence
             Followings = new FollowingRepository(_context);
             Genres = new GenreRepository(_context);
             Users = new UserRepository(_context);
+            UserNotifications = new UserNotificationRepository(_context);
         }
 
         public void Complete()

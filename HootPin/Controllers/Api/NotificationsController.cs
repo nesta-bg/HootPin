@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
+using HootPin.Core;
 using HootPin.Core.Dtos;
 using HootPin.Core.Models;
-using HootPin.Persistence;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 
@@ -13,11 +12,11 @@ namespace HootPin.Controllers.Api
     [Authorize]
     public class NotificationsController : ApiController
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public NotificationsController()
+        public NotificationsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         public NotificationsDto GetNewNotifications()
@@ -25,23 +24,14 @@ namespace HootPin.Controllers.Api
             var userId = User.Identity.GetUserId();
             var lastMonth = DateTime.Now.AddDays(-30);
 
-            var recentNotifications = _context.UserNotifications
-                .Where(un => un.UserId == userId)
-                .Select(un => un.Notification)
-                .Where(n => n.DateTime > lastMonth)
-                .Include(n => n.Hoot.Artist)
-                .ToList();
+            var recentNotifications = _unitOfWork.UserNotifications.GetRecentNotificationsByUser(userId, lastMonth);
 
             var recentNotificationsDto = recentNotifications.Select(Mapper.Map<Notification, NotificationDto>);
 
             var notificationsDto = new NotificationsDto();
             notificationsDto.RecentNotifications = recentNotificationsDto;
 
-            var newNotifications = _context.UserNotifications
-                .Where(un => un.UserId == userId && !un.IsRead)
-                .Select(un => un.Notification)
-                .Where(n => n.DateTime > lastMonth)
-                .Count();
+            var newNotifications = _unitOfWork.UserNotifications.GetNumberOfNewNotificationsByUser(userId, lastMonth);
 
             notificationsDto.NumberOfNewNotifications = newNotifications;
 
@@ -52,13 +42,12 @@ namespace HootPin.Controllers.Api
         public IHttpActionResult MarkAsRead()
         {
             var userId = User.Identity.GetUserId();
-            var notifications = _context.UserNotifications
-                .Where(un => un.UserId == userId && !un.IsRead)
-                .ToList();
+
+            var notifications = _unitOfWork.UserNotifications.GetUnreadUserNotifications(userId);
 
             notifications.ForEach(n => n.Read());
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return Ok();
         }

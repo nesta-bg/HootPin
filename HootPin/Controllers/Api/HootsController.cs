@@ -1,7 +1,6 @@
-﻿using HootPin.Persistence;
+﻿using HootPin.Core;
+using HootPin.Persistence;
 using Microsoft.AspNet.Identity;
-using System.Data.Entity;
-using System.Linq;
 using System.Web.Http;
 
 namespace HootPin.Controllers.Api
@@ -9,27 +8,25 @@ namespace HootPin.Controllers.Api
     [Authorize]
     public class HootsController : ApiController
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HootsController()
+        public HootsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         [HttpDelete]
         public IHttpActionResult Cancel(int id)
         {
             var userId = User.Identity.GetUserId();
-            var hoot = _context.Hoots
-                .Include(h => h.Attendances.Select(a => a.Attendee))
-                .Single(h => h.Id == id && h.ArtistId == userId);
+            var hoot = _unitOfWork.Hoots.GetHootWithAttendees(id, userId);
 
             if (hoot.IsCanceled)
                 return NotFound();
 
             hoot.Cancel();
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return Ok();
         }

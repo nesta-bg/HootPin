@@ -9,6 +9,7 @@ namespace HootPin.Core
         IFollowingRepository Followings { get; }
         IGenreRepository Genres { get; }
         IUserRepository Users { get; }
+        IUserNotificationRepository UserNotifications { get; }
         void Complete();
     }
 }

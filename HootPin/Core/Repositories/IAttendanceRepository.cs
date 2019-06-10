@@ -7,5 +7,7 @@ namespace HootPin.Core.Repositories
     {
         ILookup<int, Attendance> GetFutureAttendancesByAttendee(string attendeeId);
         Attendance GetAttendance(int hootId, string userId);
+        void Add(Attendance attendance);
+        void Remove(Attendance attendance);
     }
 }

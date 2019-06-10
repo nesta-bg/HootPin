@@ -26,5 +26,15 @@ namespace HootPin.Persistence.Repositories
             return _context.Attendances
                 .SingleOrDefault(a => a.HootId == hootId && a.AttendeeId == userId);
         }
+
+        public void Add(Attendance attendance)
+        {
+            _context.Attendances.Add(attendance);
+        }
+
+        public void Remove(Attendance attendance)
+        {
+            _context.Attendances.Remove(attendance);
+        }
     }
 }

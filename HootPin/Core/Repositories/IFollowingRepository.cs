@@ -7,5 +7,7 @@ namespace HootPin.Core.Repositories
     {
         Following GetFollowing(string userId, string artistId);
         IEnumerable<ApplicationUser> GetFollowees(string followerId);
+        void Add(Following following);
+        void Remove(Following following);
     }
 }
