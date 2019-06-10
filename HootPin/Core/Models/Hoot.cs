@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace HootPin.Core.Models
@@ -9,23 +8,12 @@ namespace HootPin.Core.Models
     public class Hoot
     {
         public int Id { get; set; }
-
         public ApplicationUser Artist { get; set; }
-
-        [Required]
         public string ArtistId { get; set; }
-
         public DateTime DateTime { get; set; }
-
-        [Required]
-        [StringLength(255)]
         public string Venue { get; set; }
-
         public Genre Genre { get; set; }
-
-        [Required]
         public byte GenreId { get; set; }
-
         public bool IsCanceled { get; private set; }
 
         public ICollection<Attendance> Attendances { get; private set; }
@@ -59,7 +47,7 @@ namespace HootPin.Core.Models
                 attendee.Notify(notification);
         }
 
-        public Hoot Create(ApplicationUser artist, string userId, DateTime dateTime, byte genre, string venue )
+        public Hoot Create(ApplicationUser artist, string userId, DateTime dateTime, byte genre, string venue)
         {
             var notification = Notification.HootCreated(this);
 
@@ -69,7 +57,7 @@ namespace HootPin.Core.Models
             GenreId = genre;
             Venue = venue;
 
-            foreach (var follower in Artist.Followers.Select(f => f.Follower))            
+            foreach (var follower in Artist.Followers.Select(f => f.Follower))
             {
                 follower.Notify(notification);
             }

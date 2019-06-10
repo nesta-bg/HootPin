@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using HootPin.Core.Models;
+using HootPin.Persistence.EntityConfigurations;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HootPin.Persistence
@@ -25,25 +26,13 @@ namespace HootPin.Persistence
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Attendance>()
-                .HasRequired(a => a.Hoot)
-                .WithMany(h => h.Attendances)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.Followers)
-                .WithRequired(f => f.Followee)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ApplicationUser>()
-               .HasMany(u => u.Followees)
-               .WithRequired(f => f.Follower)
-               .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<UserNotification>()
-                .HasRequired(n => n.User)
-                .WithMany(u => u.UserNotifications)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Configurations.Add(new HootConfiguration());
+            modelBuilder.Configurations.Add(new GenreConfiguration());
+            modelBuilder.Configurations.Add(new NotificationConfiguration());
+            modelBuilder.Configurations.Add(new UserNotificationConfiguration());
+            modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
+            modelBuilder.Configurations.Add(new FollowingConfiguration());
+            modelBuilder.Configurations.Add(new AttendanceConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
