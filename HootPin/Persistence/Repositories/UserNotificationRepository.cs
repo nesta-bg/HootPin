@@ -22,6 +22,7 @@ namespace HootPin.Persistence.Repositories
                 .Select(un => un.Notification)
                 .Where(n => n.DateTime > period)
                 .Include(n => n.Hoot.Artist)
+                .OrderByDescending(n => n.DateTime)
                 .ToList();
         }
 
