@@ -1,4 +1,4 @@
-﻿var CancelHootService = function () {
+﻿var HootService = function () {
 
     var deleteHoot = function (hootId, done, fail) {
         $.ajax({

@@ -1,4 +1,4 @@
-﻿var MyHootsController = function (cancelHootService) {
+﻿var MyHootsController = function (hootService) {
 
     var link;
 
@@ -25,7 +25,7 @@
                     label: "Yes",
                     className: "btn-danger",
                     callback: function () {
-                        cancelHootService.deleteHoot(hootId, done, fail);
+                        hootService.deleteHoot(hootId, done, fail);
                     }
                 }
             }
@@ -46,4 +46,4 @@
         init: init
     } /* Revealing Module Pattern */
 
-}(CancelHootService); /* Immediately Invoked Function Expression (IIFE) */ 
+}(HootService); /* Immediately Invoked Function Expression (IIFE) */ 

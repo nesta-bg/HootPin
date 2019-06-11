@@ -11,11 +11,13 @@ namespace HootPin
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Scripts/app/services/attendanceService.js",
                         "~/Scripts/app/services/followingService.js",
-                        "~/Scripts/app/services/cancelHootService.js",
+                        "~/Scripts/app/services/hootService.js",
+                        "~/Scripts/app/services/notificationService.js",
                         "~/Scripts/app/controllers/hootsController.js",
                         "~/Scripts/app/controllers/hootDetailsController.js",
                         "~/Scripts/app/controllers/followeesController.js",
-                        "~/Scripts/app/controllers/myHootsController.js"));
+                        "~/Scripts/app/controllers/myHootsController.js",
+                        "~/Scripts/app/controllers/notificationsController.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
