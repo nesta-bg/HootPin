@@ -64,11 +64,11 @@ namespace HootPin.Core.Repositories
                 .OrderBy(h => h.DateTime);
         }
 
-        public Hoot GetHootWithAttendees(int hootId, string userId)
+        public Hoot GetHootWithAttendees(int hootId)
         {
             return _context.Hoots
                 .Include(h => h.Attendances.Select(a => a.Attendee))
-                .Single(h => h.Id == hootId && h.ArtistId == userId);
+                .SingleOrDefault(h => h.Id == hootId);
         }
 
         public IEnumerable<Hoot> GetHootsUserAttending(string userId)

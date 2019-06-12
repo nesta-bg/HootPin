@@ -19,10 +19,13 @@ namespace HootPin.Controllers.Api
         public IHttpActionResult Cancel(int id)
         {
             var userId = User.Identity.GetUserId();
-            var hoot = _unitOfWork.Hoots.GetHootWithAttendees(id, userId);
+            var hoot = _unitOfWork.Hoots.GetHootWithAttendees(id);
 
-            if (hoot.IsCanceled)
+            if (hoot == null || hoot.IsCanceled)
                 return NotFound();
+
+            if (hoot.ArtistId != userId)
+                return Unauthorized();
 
             hoot.Cancel();
 

@@ -10,7 +10,7 @@ namespace HootPin.Core.Repositories
         IEnumerable<Hoot> GetUpcomingHootsByArtist(string artistId);
         IEnumerable<Hoot> GetUpcomingHootsWithArtistsAndGenres();
         IEnumerable<Hoot> GetHootsByQuery(IEnumerable<Hoot> hoots, string query);
-        Hoot GetHootWithAttendees(int hootId, string userId);
+        Hoot GetHootWithAttendees(int hootId);
         IEnumerable<Hoot> GetHootsUserAttending(string userId);
         void Add(Hoot hoot);
     }

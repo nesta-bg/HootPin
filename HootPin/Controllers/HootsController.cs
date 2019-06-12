@@ -83,8 +83,13 @@ namespace HootPin.Controllers
                 return View("HootForm", viewModel);
             }
 
-            var userId = User.Identity.GetUserId();
-            var hoot = _unitOfWork.Hoots.GetHootWithAttendees(viewModel.Id, userId);
+            var hoot = _unitOfWork.Hoots.GetHootWithAttendees(viewModel.Id);
+
+            if (hoot == null)
+                return HttpNotFound();
+
+            if (hoot.ArtistId != User.Identity.GetUserId())
+                return new HttpUnauthorizedResult();
 
             hoot.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre);
 
