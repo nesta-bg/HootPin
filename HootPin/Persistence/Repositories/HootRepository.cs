@@ -9,9 +9,9 @@ namespace HootPin.Core.Repositories
 {
     public class HootRepository : IHootRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public HootRepository(ApplicationDbContext context)
+        public HootRepository(IApplicationDbContext context)
         {
             _context = context;
         }

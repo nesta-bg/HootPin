@@ -249,6 +249,7 @@
     <Compile Include="Persistence\EntityConfigurations\HootConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicationUserConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\UserNotificationConfiguration.cs" />
+    <Compile Include="Persistence\IApplicationDbContext.cs" />
     <Compile Include="Persistence\Migrations\201905201021431_InitialTablesIdentityFramework.cs" />
     <Compile Include="Persistence\Migrations\201905201021431_InitialTablesIdentityFramework.Designer.cs">
       <DependentUpon>201905201021431_InitialTablesIdentityFramework.cs</DependentUpon>

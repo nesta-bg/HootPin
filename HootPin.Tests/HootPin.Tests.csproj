@@ -110,6 +110,8 @@
     <Compile Include="Core\Models\HootTests.cs" />
     <Compile Include="Core\Models\NotificationTest.cs" />
     <Compile Include="Extensions\ApiControllerExtensions.cs" />
+    <Compile Include="Extensions\MockDbSetExtensions.cs" />
+    <Compile Include="Persistence\Repositories\HootRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
