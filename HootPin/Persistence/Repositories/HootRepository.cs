@@ -47,9 +47,9 @@ namespace HootPin.Core.Repositories
         public IEnumerable<Hoot> GetUpcomingHootsWithArtistsAndGenres()
         {
             return _context.Hoots
+                .Where(h => h.DateTime > DateTime.Now && !h.IsCanceled)
                 .Include(h => h.Artist)
                 .Include(h => h.Genre)
-                .Where(h => h.DateTime > DateTime.Now && !h.IsCanceled)
                 .OrderBy(h => h.DateTime)
                 .ToList();
         }
@@ -73,9 +73,8 @@ namespace HootPin.Core.Repositories
 
         public IEnumerable<Hoot> GetHootsUserAttending(string userId)
         {
-            return _context.Attendances
-                .Where(a => a.AttendeeId == userId)
-                .Select(a => a.Hoot)
+            return _context.Hoots
+                .Where(h => h.Attendances.Any(a => a.AttendeeId == userId))
                 .Include(h => h.Artist)
                 .Include(h => h.Genre)
                 .OrderBy(h => h.DateTime)

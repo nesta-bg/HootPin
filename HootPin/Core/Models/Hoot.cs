@@ -16,7 +16,7 @@ namespace HootPin.Core.Models
         public byte GenreId { get; set; }
         public bool IsCanceled { get; private set; }
 
-        public ICollection<Attendance> Attendances { get; private set; }
+        public ICollection<Attendance> Attendances { get; set; }
 
         public Hoot()
         {

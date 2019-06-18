@@ -9,8 +9,8 @@ namespace HootPin.Persistence.Repositories
 {
     public class UserNotificationRepository : IUserNotificationRepository
     {
-        private readonly ApplicationDbContext _context;
-        public UserNotificationRepository(ApplicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public UserNotificationRepository(IApplicationDbContext context)
         {
             _context = context;
         }

@@ -51,7 +51,7 @@ namespace HootPin.Tests.Persistence.Repositories
         }
 
         [TestMethod]
-        public void GetUpcomingHootByArtist_HootIsForADifferentArtist_ShouldNotBeReturned()
+        public void GetUpcomingHootsByArtist_HootIsForADifferentArtist_ShouldNotBeReturned()
         {
             var hoot = new Hoot() { DateTime = DateTime.Now.AddDays(1), ArtistId = "1" };
             _mockHoots.SetSource(new[] { hoot });
@@ -67,6 +67,30 @@ namespace HootPin.Tests.Persistence.Repositories
             _mockHoots.SetSource(new[] { hoot });
 
             var hoots = _repository.GetUpcomingHootsByArtist(hoot.ArtistId);
+            hoots.Should().Contain(hoot);
+        }
+
+        [TestMethod]
+        public void GetHootsUserAttending_HootIsNotForTheGivenArtist_ShouldNotBeReturned()
+        {
+            var attendance = new Attendance() { AttendeeId = "1" };
+            var hoot = new Hoot();
+            hoot.Attendances.Add(attendance);
+            _mockHoots.SetSource(new[] { hoot });
+
+            var hoots = _repository.GetHootsUserAttending(attendance.AttendeeId + "-");
+            hoots.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void GetHootsUserAttending_HootIsForTheGivenArtist_ShouldBeReturned()
+        {
+            var attendance = new Attendance() { AttendeeId = "1" };
+            var hoot = new Hoot();
+            hoot.Attendances.Add(attendance);
+            _mockHoots.SetSource(new[] { hoot });
+
+            var hoots = _repository.GetHootsUserAttending(attendance.AttendeeId);
             hoots.Should().Contain(hoot);
         }
     }

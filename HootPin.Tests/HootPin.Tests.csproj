@@ -112,6 +112,7 @@
     <Compile Include="Extensions\ApiControllerExtensions.cs" />
     <Compile Include="Extensions\MockDbSetExtensions.cs" />
     <Compile Include="Persistence\Repositories\HootRepositoryTests.cs" />
+    <Compile Include="Persistence\Repositories\UserNotificationRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
