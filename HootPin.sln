@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HootPin", "HootPin\HootPin.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HootPin.Tests", "HootPin.Tests\HootPin.Tests.csproj", "{061729FA-DCDF-4B6A-8078-20A1D65B458D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HootPin.IntegrationTests", "HootPin.IntegrationTests\HootPin.IntegrationTests.csproj", "{72D338A1-620A-4721-AC51-D0D52006834F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{061729FA-DCDF-4B6A-8078-20A1D65B458D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{061729FA-DCDF-4B6A-8078-20A1D65B458D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{061729FA-DCDF-4B6A-8078-20A1D65B458D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D338A1-620A-4721-AC51-D0D52006834F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D338A1-620A-4721-AC51-D0D52006834F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D338A1-620A-4721-AC51-D0D52006834F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D338A1-620A-4721-AC51-D0D52006834F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
