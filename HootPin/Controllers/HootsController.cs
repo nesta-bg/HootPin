@@ -109,7 +109,7 @@ namespace HootPin.Controllers
         }
 
         [Authorize]
-        public ActionResult Attend()
+        public ViewResult Attend()
         {
             var userId = User.Identity.GetUserId();
 

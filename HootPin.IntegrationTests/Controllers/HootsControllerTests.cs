@@ -79,5 +79,48 @@ namespace HootPin.IntegrationTests.Controllers
             hoot.Venue.Should().Be("Venue");
             hoot.GenreId.Should().Be(2);
         }
+
+        [Test, Isolated]
+        public void Attend_WhenCalled_ShouldReturnHootsUserAttending()
+        {
+            // Arrange
+            var user = _context.Users.First();
+            _controller.MockCurrentUser(user.Id, user.UserName);
+            var genre = _context.Genres.First();
+            
+            var hoot = new Hoot { Artist = user, DateTime = DateTime.Now, Genre = genre, Venue = "-" };
+            var attendance = new Attendance { Attendee = user, Hoot = hoot };
+            hoot.Attendances.Add(attendance);
+
+            _context.Hoots.Add(hoot);
+            _context.SaveChanges();
+
+            // Act
+            var result = _controller.Attend();
+
+            // Assert
+            (result.ViewData.Model as HootsViewModel).UpcomingHoots.Should().HaveCount(1);
+        }
+
+        [Test, Isolated]
+        public void Attend_WhenCalled_ShouldReturnUsersFutureAttendances()
+        {
+            // Arrange
+            var user = _context.Users.First();
+            _controller.MockCurrentUser(user.Id, user.UserName);
+            var genre = _context.Genres.First();
+            var hoot = new Hoot { Artist = user, DateTime = DateTime.Now.AddDays(1), Genre = genre, Venue = "-" };
+
+            var attendance = new Attendance { Attendee = user, Hoot = hoot };
+
+            _context.Attendances.Add(attendance);
+            _context.SaveChanges();
+
+            // Act
+            var result = _controller.Attend();
+
+            // Assert
+            (result.ViewData.Model as HootsViewModel).Attendances.Should().HaveCount(1);
+        }
     }
 }
