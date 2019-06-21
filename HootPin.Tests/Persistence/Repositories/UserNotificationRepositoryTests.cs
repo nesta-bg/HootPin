@@ -2,12 +2,12 @@
 using HootPin.Core.Models;
 using HootPin.Persistence;
 using HootPin.Persistence.Repositories;
-using HootPin.Tests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using TestingExtensions;
 
 namespace HootPin.Tests.Persistence.Repositories
 {
@@ -44,7 +44,7 @@ namespace HootPin.Tests.Persistence.Repositories
         [TestMethod]
         public void GetRecentNotificationsByUser_NotificationsAreInThePast_ShouldNotBeReturned()
         {
-            var user = new ApplicationUser ();
+            var user = new ApplicationUser();
             var notification = Notification.HootCreated(new Hoot());
             var userNotification = new UserNotification(user, notification);
             userNotification.UserId = "1";
@@ -57,7 +57,7 @@ namespace HootPin.Tests.Persistence.Repositories
         [TestMethod]
         public void GetRecentNotificationsByUser_ValidRequest_ShouldBeReturned()
         {
-            var user = new ApplicationUser ();
+            var user = new ApplicationUser();
             var notification = Notification.HootCreated(new Hoot());
             var userNotification = new UserNotification(user, notification);
             userNotification.UserId = "1";

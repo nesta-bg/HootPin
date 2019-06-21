@@ -4,11 +4,11 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HootPin.IntegrationTests.Extensions
+namespace TestingExtensions
 {
     public static class ControllerExtensions
     {
-        public static void MockCurrentUser(this Controller controller, string userId, string username)
+        public static void MockCurrentUserMvc(this Controller controller, string userId, string username)
         {
             var identity = new GenericIdentity(username);
             identity.AddClaim(

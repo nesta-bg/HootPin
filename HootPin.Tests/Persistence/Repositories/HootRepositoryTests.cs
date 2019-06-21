@@ -2,11 +2,11 @@
 using HootPin.Core.Models;
 using HootPin.Core.Repositories;
 using HootPin.Persistence;
-using HootPin.Tests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Data.Entity;
+using TestingExtensions;
 
 namespace HootPin.Tests.Persistence.Repositories
 {

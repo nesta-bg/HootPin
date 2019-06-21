@@ -4,10 +4,10 @@ using HootPin.Core;
 using HootPin.Core.Dtos;
 using HootPin.Core.Models;
 using HootPin.Core.Repositories;
-using HootPin.Tests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Web.Http.Results;
+using TestingExtensions;
 
 namespace HootPin.Tests.Controllers.Api
 {
@@ -17,7 +17,7 @@ namespace HootPin.Tests.Controllers.Api
         private AttendancesController _controller;
         private Mock<IAttendanceRepository> _mockRepository;
         private string _userId;
-        
+
         [TestInitialize]
         public void TestInitialize()
         {
@@ -28,7 +28,7 @@ namespace HootPin.Tests.Controllers.Api
 
             _controller = new AttendancesController(mockUoW.Object);
             _userId = "1";
-            _controller.MockCurrentUser(_userId, "user1@domain");
+            _controller.MockCurrentUserApi(_userId, "user1@domain");
         }
 
         [TestMethod]

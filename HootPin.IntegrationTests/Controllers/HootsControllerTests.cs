@@ -2,12 +2,12 @@
 using HootPin.Controllers;
 using HootPin.Core.Models;
 using HootPin.Core.ViewModels;
-using HootPin.IntegrationTests.Extensions;
 using HootPin.Persistence;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestingExtensions;
 
 namespace HootPin.IntegrationTests.Controllers
 {
@@ -35,7 +35,7 @@ namespace HootPin.IntegrationTests.Controllers
         {
             // Arrange
             var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
+            _controller.MockCurrentUserMvc(user.Id, user.UserName);
             var genre = _context.Genres.First();
 
             var hoot = new Hoot { Artist = user, DateTime = DateTime.Now.AddDays(1), Genre = genre, Venue = "-" };
@@ -55,7 +55,7 @@ namespace HootPin.IntegrationTests.Controllers
         {
             // Arrange
             var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
+            _controller.MockCurrentUserMvc(user.Id, user.UserName);
             var genre = _context.Genres.Single(g => g.Id == 1);
 
             var hoot = new Hoot { Artist = user, DateTime = DateTime.Now.AddDays(1), Genre = genre, Venue = "-" };
@@ -85,9 +85,9 @@ namespace HootPin.IntegrationTests.Controllers
         {
             // Arrange
             var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
+            _controller.MockCurrentUserMvc(user.Id, user.UserName);
             var genre = _context.Genres.First();
-            
+
             var hoot = new Hoot { Artist = user, DateTime = DateTime.Now, Genre = genre, Venue = "-" };
             var attendance = new Attendance { Attendee = user, Hoot = hoot };
             hoot.Attendances.Add(attendance);
@@ -107,7 +107,7 @@ namespace HootPin.IntegrationTests.Controllers
         {
             // Arrange
             var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
+            _controller.MockCurrentUserMvc(user.Id, user.UserName);
             var genre = _context.Genres.First();
             var hoot = new Hoot { Artist = user, DateTime = DateTime.Now.AddDays(1), Genre = genre, Venue = "-" };
 

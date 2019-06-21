@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace HootPin.Tests.Extensions
+namespace TestingExtensions
 {
     public static class MockDbSetExtensions
     {
