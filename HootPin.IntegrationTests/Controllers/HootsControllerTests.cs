@@ -7,6 +7,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using TestingExtensions;
 
 namespace HootPin.IntegrationTests.Controllers
@@ -121,6 +122,39 @@ namespace HootPin.IntegrationTests.Controllers
 
             // Assert
             (result.ViewData.Model as HootsViewModel).Attendances.Should().HaveCount(1);
+        }
+
+        [Test, Isolated]
+        public void Details_WhenCalled_ShouldReturnHootsDetails()
+        {
+            // Arrange
+            var attendee = _context.Users.Single(u => u.Name == "user1");
+            var artist = _context.Users.Single(u => u.Name == "user2");
+            _controller.MockCurrentUserMvc(attendee.Id, attendee.UserName);
+            var genre = _context.Genres.First();
+
+            var hoot = new Hoot { Artist = artist, DateTime = DateTime.Now, Genre = genre, Venue = "-" };
+
+            _context.Hoots.Add(hoot);
+            _context.SaveChanges();
+
+            var attendance = new Attendance { Hoot = hoot, Attendee = attendee };
+
+            _context.Attendances.Add(attendance);
+            _context.SaveChanges();
+
+            var following = new Following { Follower = attendee, Followee = artist };
+
+            _context.Followings.Add(following);
+            _context.SaveChanges();
+
+            // Act
+            var result = _controller.Details(hoot.Id) as ViewResult;
+
+            // Assert
+            (result.ViewData.Model as HootDetailsViewModel).Hoot.ShouldBeEquivalentTo(hoot);
+            (result.ViewData.Model as HootDetailsViewModel).IsAttending.Should().BeTrue();
+            (result.ViewData.Model as HootDetailsViewModel).IsFollowing.Should().BeTrue();
         }
     }
 }

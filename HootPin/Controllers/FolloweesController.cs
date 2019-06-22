@@ -13,7 +13,7 @@ namespace HootPin.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
             var userId = User.Identity.GetUserId();
 

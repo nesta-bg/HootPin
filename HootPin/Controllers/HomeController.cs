@@ -15,7 +15,7 @@ namespace HootPin.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index(string query = null)
+        public ViewResult Index(string query = null)
         {
             var upcomingHoots = _unitOfWork.Hoots.GetUpcomingHootsWithArtistsAndGenres();
 

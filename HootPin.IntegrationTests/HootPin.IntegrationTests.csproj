@@ -110,6 +110,8 @@
     <Compile Include="Controllers\Api\FollowingsControllerTests.cs" />
     <Compile Include="Controllers\Api\AttendancesControllerTests.cs" />
     <Compile Include="Controllers\HootsControllerTests.cs" />
+    <Compile Include="Controllers\FolloweesControllerTests.cs" />
+    <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="GlobalSetUp.cs" />
     <Compile Include="Isolated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
